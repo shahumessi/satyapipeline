@@ -15,7 +15,7 @@ node{
    stage('slack notifications'){
      slackSend baseUrl: 'https://hooks.slack.com/services/', 
      channel: 'slack-notifications', 
-     color: 'good', message: 'Test message', 
+     color: 'good', message: 'job build sucessfully', 
      teamDomain: 'javahome', 
      tokenCredentialId: 'slack'
 
