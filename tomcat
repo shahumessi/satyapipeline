@@ -24,6 +24,11 @@ node{
               }
               }
           }
+          stage('deploy to tomcat'){
+            sshagent(['tomcat']) {
+                sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.223.247.216:/apache-tomcat-8.5.34/webapps/'
+}
+}
    stage('email Notification'){
      mail bcc: '', 
         body: '''build the job successfully
