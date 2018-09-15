@@ -1,0 +1,10 @@
+properties([parameters([choice(choices: ['master\nbranch1\nbranch2'], description: '', name: 'branch')])])
+
+
+node{
+    
+    stage('parametres'){
+        echo "pulling changes from branch ${params.branch}"
+        git url: 'https://github.com/sandeep212/javaclone.git', branch: "${params.branch}"
+    }
+}
