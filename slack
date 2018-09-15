@@ -12,4 +12,13 @@ node{
         subject: 'jenkins job', 
         to: 'sandeepchowdary910@gmail.com'
    }
+   stage('slack notifications'){
+     slackSend baseUrl: 'https://hooks.slack.com/services/', 
+     channel: 'slack-notifications', 
+     color: 'good', message: 'Test message', 
+     teamDomain: 'javahome', 
+     tokenCredentialId: 'slack'
+
+   
+   }
 }
