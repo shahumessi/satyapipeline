@@ -22,6 +22,7 @@ node{
               tokenCredentialId: 'slack'
                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
               }
+              }
           }
    stage('email Notification'){
      mail bcc: '', 
