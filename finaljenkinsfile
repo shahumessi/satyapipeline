@@ -11,8 +11,10 @@ node{
     }
   }
   stage("Quality Gate"){
-          timeout(time: 1, unit: 'HOURS') {
-              def qg = waitForQualityGate()
+    withSonarQubeEnv('sonar') {
+    sh 'mvn clean package sonar:sonar'
+    timeout(time: 1, unit: 'HOURS') {
+             def qg = waitForQualityGate()
               if (qg.status != 'OK') {
                   slackSend baseUrl: 'https://hooks.slack.com/services/', 
                   channel: 'jenkinsnotifications', 
@@ -20,7 +22,8 @@ node{
                   message: 'slack notification from jenkins ', 
                   tokenCredentialId: 'slack2'
                   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-              }
+           
+                }
           }
       }        
   stage('email notifications'){
