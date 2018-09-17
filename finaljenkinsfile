@@ -6,8 +6,11 @@ node{
     sh 'mvn package'
   }
   stage('email notifications'){
-    emailext body: 'job build sucessfully', 
-    subject: 'jenkins build', 
-    to: 'sandeepchowdary512@gmail.com'
+    mail bcc: '', 
+    body: 'job build sucessfully', 
+    cc: '', from: '', 
+    replyTo: '', 
+    subject: 'from jenkins', 
+    to: 'sandeepchowdary212@gmail.com'
   }
 }
