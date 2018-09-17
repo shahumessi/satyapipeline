@@ -5,6 +5,24 @@ node{
   stage('mvn buid'){
     sh 'mvn package'
   }
+  stage('analysing the souce code'){
+    withSonarQubeEnv('sonarqube') {
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    }
+  }
+  stage("Quality Gate"){
+          timeout(time: 1, unit: 'HOURS') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                  slackSend baseUrl: 'https://hooks.slack.com/services/', 
+                  channel: 'jenkinsnotifications', 
+                  color: 'danger', 
+                  message: 'slack notification from jenkins ', 
+                  tokenCredentialId: 'slack2'
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+      }        
   stage('email notifications'){
     mail bcc: '', 
     body: 'job build sucessfully', 
@@ -20,9 +38,5 @@ node{
     message: 'slack notification from jenkins ', 
     tokenCredentialId: 'slack2'
   }
-  stage('analysing the souce code'){
-    withSonarQubeEnv('sonarqube') {
-      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
-    }
-  }
+  
 }
