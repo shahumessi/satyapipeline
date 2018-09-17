@@ -20,4 +20,9 @@ node{
     message: 'slack notification from jenkins ', 
     tokenCredentialId: 'slack2'
   }
+  stage('analysing the souce code'){
+    withSonarQubeEnv('sonarqube') {
+      sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
+    }
+  }
 }
