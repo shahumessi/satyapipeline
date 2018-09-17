@@ -23,7 +23,15 @@ node{
            
                 }
           }
-      }        
+      }    
+  stage('Nexus artifactory uploader'){
+    nexusArtifactUploader artifacts: [[artifactId: '$BUILD_TIMESTAMP', classifier: '',
+    file: '/var/lib/jenkins/workspace/final-jenkins-pipeline/target/myweb-0.0.1.war',
+    type: 'war']], credentialsId: 'nexus',
+    groupId: 'dev',
+    nexusUrl: '18.188.240.36:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_ID'
+
+  }
   stage('email notifications'){
     mail bcc: '', 
     body: 'job build sucessfully', 
