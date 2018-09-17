@@ -33,8 +33,9 @@ node{
 
   }
   stage('downloading the war'){
-    sh '''mkdir tom
-         wget http://18.188.240.36:8081/nexus/content/repositories/java/dev/17472018/12/17472018-12.war'''
+   sh '''mkdir tom
+   cd tom
+   wget http://18.188.240.36:8081/nexus/content/repositories/java/dev/17472018/12/17472018-12.war'''
 
   }
   stage('deploy to tomcat'){
