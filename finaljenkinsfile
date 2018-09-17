@@ -32,9 +32,14 @@ node{
     nexusUrl: '18.188.240.36:8081/nexus', nexusVersion: 'nexus2', protocol: 'http', repository: 'java', version: '$BUILD_ID'
 
   }
+  stage('downloading the war'){
+    sh '''mkdir tom
+         wget http://18.188.240.36:8081/nexus/content/repositories/java/dev/17472018/12/17472018-12.war'''
+
+  }
   stage('deploy to tomcat'){
     sshagent(['tomcat']) {
-       sh 'scp -o StrictHostKeyChecking=no target/*.war ec2-user@18.188.240.36:/home/ec2-user/apache-tomcat-8.5.34/webapps/'
+       sh 'scp -o StrictHostKeyChecking=no tom/*.war ec2-user@18.188.240.36:/home/ec2-user/apache-tomcat-8.5.34/webapps/'
 }
 
   }
