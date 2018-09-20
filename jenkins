@@ -3,7 +3,7 @@ node{
     git 'https://github.com/devops98/satyapipeline.git'
   }
   stage('build'){
-    def mvnHome=tool name: 'maven3', type: 'maven'
-    sh '${mvnHome}/bin/mvn package'
+    def mvnHome = tool name: 'maven3', type: 'maven'
+    sh "${mvnHome}/bin/mvn package"
   }
 }
