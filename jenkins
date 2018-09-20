@@ -2,4 +2,8 @@ node{
   stage('checkout from git'){
     git 'https://github.com/devops98/satyapipeline.git'
   }
+  stage('build'){
+    tool name: 'maven3', type: 'maven'
+    sh 'mvn package'
+  }
 }
