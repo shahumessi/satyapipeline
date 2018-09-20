@@ -1,1 +1,5 @@
-
+node{
+  stage('checkout from git'){
+    git 'https://github.com/devops98/satyapipeline.git'
+  }
+}
